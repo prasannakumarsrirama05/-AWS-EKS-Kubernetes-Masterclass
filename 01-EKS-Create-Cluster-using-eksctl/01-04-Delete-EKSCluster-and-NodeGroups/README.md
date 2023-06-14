@@ -1,38 +1,47 @@
-# Delete EKS Cluster & Node Groups
+# 🗑️ Delete EKS Cluster & Node Groups 🗑️
 
-## Step-01: Delete Node Group
-- We can delete a nodegroup separately using below `eksctl delete nodegroup`
-```
-# List EKS Clusters
+Learn how to delete an EKS cluster and its associated node groups.
+
+## 🚀 Step-01: Delete Node Group 🚀
+
+1. List EKS Clusters
+```shell
 eksctl get clusters
+```
 
-# Capture Node Group name
+2. Capture Node Group name
+```shell
 eksctl get nodegroup --cluster=<clusterName>
 eksctl get nodegroup --cluster=eksdemo1
+```
 
-# Delete Node Group
+3. Delete Node Group
+```shell
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
 eksctl delete nodegroup --cluster=eksdemo1 --name=eksdemo1-ng-public1
 ```
 
-## Step-02: Delete Cluster  
-- We can delete cluster using `eksctl delete cluster`
-```
-# Delete Cluster
+## 🌪️ Step-02: Delete Cluster 🌪️
+
+1. Delete Cluster
+```shell
 eksctl delete cluster <clusterName>
 eksctl delete cluster eksdemo1
 ```
 
-## Important Notes
+## 📝 Important Notes 📝
 
 ### Note-1: Rollback any Security Group Changes
-- When we create a EKS cluster using `eksctl` it creates the worker node security group with only port 22 access.
-- When we progress through the course, we will be creating many **NodePort Services** to access and test our applications via browser. 
-- During this process, we need to add an additional rule to this automatically created security group, allowing access to our applications we have deployed. 
-- So the point we need to understand here is when we are deleting the cluster using `eksctl`, its core components should be in same state which means roll back the change we have done to security group before deleting the cluster.
-- In this way, cluster will get deleted without any issues, else we might have issues and we need to refer cloudformation events and manually delete few things. In short, we need to go to many places for deletions. 
+
+- When we create an EKS cluster using `eksctl`, it creates the worker node security group with only port 22 access.
+- During the course, we will be creating many **NodePort Services** to access and test our applications via a browser.
+- If you have made any additional changes to the security group, rollback those changes before deleting the cluster.
+- This ensures that the cluster can be deleted without any issues.
 
 ### Note-2: Rollback any EC2 Worker Node Instance Role - Policy changes
-- When we are doing `EBS Storage Section with EBS CSI Driver` we will add a custom policy to worker node IAM role.
-- When you are deleting the cluster, first roll back that change and delete it. 
-- This way we don't face any issues during cluster deletion.
+
+- During the "EBS Storage Section with EBS CSI Driver," we add a custom policy to the worker node IAM role.
+- Before deleting the cluster, rollback any changes made to the worker node IAM role policies.
+- This avoids any issues during cluster deletion.
+
+Keep these important notes in mind to ensure smooth deletion of your EKS cluster and associated resources.
