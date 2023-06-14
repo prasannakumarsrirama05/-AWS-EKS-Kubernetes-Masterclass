@@ -1,126 +1,124 @@
-# Install AWS, kubectl & eksctl CLI's
+# 🌟 AWS, kubectl & eksctl CLI Installation Guide 🌟
 
-## Step-00: Introduction
-- Install AWS CLI
-- Install kubectl CLI
-- Install eksctl CLI
+A comprehensive guide to installing AWS CLI, kubectl CLI, and eksctl CLI.
 
-## Step-01: Install AWS CLI
-- Reference-1: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
-- Reference-2: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
-### Step-01-01: MAC - Install and configure AWS CLI
-- Download the binary and install via command line using below two commands. 
-```
-# Download Binary
-curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+## 📝 Table of Contents
+- [Introduction](#-introduction-)
+- [Installing AWS CLI](#-installing-aws-cli-)
+  - [Mac 💻](#mac-)
+  - [Windows 🖥️](#windows-)
+  - [Configure AWS CLI ⚙️](#configure-aws-cli-)
+- [Installing kubectl CLI](#-installing-kubectl-cli-)
+  - [Mac 💻](#mac-1-)
+  - [Windows 🖥️](#windows-1-)
+- [Installing eksctl CLI](#-installing-eksctl-cli-)
+  - [Mac 💻](#mac-2-)
+  - [Windows/Linux 🖥️🐧](#windowslinux-)
+- [References 📚](#references-)
 
-# Install the binary
-sudo installer -pkg ./AWSCLIV2.pkg -target /
-```
-- Verify the installation 
-```
-aws --version
-aws-cli/2.0.7 Python/3.7.4 Darwin/19.4.0 botocore/2.0.0dev11
+## 🚀 Introduction
+This guide provides step-by-step instructions on how to install:
+- 🛠️ AWS CLI
+- 🛠️ kubectl CLI
+- 🛠️ eksctl CLI
 
-which aws
-```
-- Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
+## 🧰 Installing AWS CLI
+AWS CLI is a powerful tool to interact with AWS services through the command line.
 
-### Step-01-02: Windows 10 - Install and configure AWS CLI
-- The AWS CLI version 2 is supported on Windows XP or later.
-- The AWS CLI version 2 supports only 64-bit versions of Windows.
-- Download Binary: https://awscli.amazonaws.com/AWSCLIV2.msi
-- Install the downloaded binary (standard windows install)
-```
-aws --version
-aws-cli/2.0.8 Python/3.7.5 Windows/10 botocore/2.0.0dev12
-```
-- Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
+#### Mac 💻
+1. 📥 Download and install AWS CLI using these commands:
+   ```sh
+   curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+   sudo installer -pkg ./AWSCLIV2.pkg -target /
+   ```
+2. ✅ Verify the installation:
+   ```sh
+   aws --version
+   which aws
+   ```
+   📘 [Reference for Mac](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
 
-### Step-01-03: Configure AWS Command Line using Security Credentials
-- Go to AWS Management Console --> Services --> IAM
-- Select the IAM User: kalyan 
-- **Important Note:** Use only IAM user to generate **Security Credentials**. Never ever use Root User. (Highly not recommended)
-- Click on **Security credentials** tab
-- Click on **Create access key**
-- Copy Access ID and Secret access key
-- Go to command line and provide the required details
-```
-aws configure
-AWS Access Key ID [None]: ABCDEFGHIAZBERTUCNGG  (Replace your creds when prompted)
-AWS Secret Access Key [None]: uMe7fumK1IdDB094q2sGFhM5Bqt3HQRw3IHZzBDTm  (Replace your creds when prompted)
-Default region name [None]: us-east-1
-Default output format [None]: json
-```
-- Test if AWS CLI is working after configuring the above
-```
-aws ec2 describe-vpcs
-```
+#### Windows 🖥️
+1. 📥 Download the AWS CLI binary for Windows 10 (64-bit) from this [link](https://awscli.amazonaws.com/AWSCLIV2.msi).
+2. 🔨 Install the downloaded binary.
+3. ✅ Verify the installation:
+   ```sh
+   aws --version
+   ```
+   📘 [Reference for Windows](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html)
 
-## Step-02: Install kubectl CLI
-- **IMPORTANT NOTE:** Kubectl binaries for EKS please prefer to use from Amazon (**Amazon EKS-vended kubectl binary**)
-- This will help us to get the exact Kubectl client version based on our EKS Cluster version. You can use the below documentation link to download the binary.
-- Reference: https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+#### Configure AWS CLI ⚙️
+1. 🚪 Log in to AWS Management Console.
+2. Navigate to `Services > IAM`.
+3. 🤵 Select an IAM user (🔐 never use the root user for security reasons) and navigate to the **Security credentials** tab.
+4. Click **Create access key** and copy the Access ID and Secret access key.
+5. 🔧 Open your command line and run:
+   ```sh
+   aws configure
+   ```
+6. 📝 Provide the required details (use `us-east-1` for default region and `json` for default output format).
+7. 🧪 Test if AWS CLI is working:
+   ```sh
+   aws ec2 describe-vpcs
+   ```
 
-### Step-02-01: MAC - Install and configure kubectl
-- Kubectl version we are using here is 1.16.8 (It may vary based on Cluster version you are planning use in AWS EKS)
+## 🧰 Installing kubectl CLI
+kubectl CLI is used to deploy and manage applications on Kubernetes.
 
-```
-# Download the Package
-mkdir kubectlbinary
-cd kubectlbinary
-curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/darwin/amd64/kubectl
+⚠️ **IMPORTANT**: Use the Amazon EKS-vended kubectl binary to ensure compatibility with your EKS Cluster version. [Reference](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html)
 
-# Provide execute permissions
-chmod +x ./kubectl
+#### Mac 💻
+1. 📥 Download and install kubectl:
+   ```sh
+   mkdir kubectlbinary
+   cd kubectlbinary
+   curl -o kubectl https://amazon-eks.s3.us-west-
 
-# Set the Path by copying to user Home Directory
-mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
-echo 'export PATH=$PATH:$HOME/bin' >> ~/.bash_profile
+2.amazonaws.com/1.16.8/2020-04-16/bin/darwin/amd64/kubectl
+   chmod +x ./kubectl
+   mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+   echo 'export PATH=$PATH:$HOME/bin' >> ~/.bash_profile
+   ```
+2. ✅ Verify the installation:
+   ```sh
+   kubectl version --short --client
+   ```
 
-# Verify the kubectl version
-kubectl version --short --client
-Output: Client Version: v1.16.8-eks-e16311
-```
+#### Windows 🖥️
+1. 📥 Download and install kubectl on Windows 10:
+   ```sh
+   mkdir kubectlbinary
+   cd kubectlbinary
+   curl -o kubectl.exe https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/windows/amd64/kubectl.exe
+   ```
+2. 🔄 Update the system **Path** environment variable to include the path to your kubectl binary (e.g., `C:\Users\YOUR_USER\Documents\kubectlbinary`).
+3. ✅ Verify the installation:
+   ```sh
+   kubectl version --short --client
+   kubectl version --client
+   ```
 
+## 🧰 Installing eksctl CLI
+eksctl CLI is the official CLI for Amazon EKS.
 
-### Step-02-02: Windows 10 - Install and configure kubectl
-- Install kubectl on Windows 10 
-```
-mkdir kubectlbinary
-cd kubectlbinary
-curl -o kubectl.exe https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/windows/amd64/kubectl.exe
-```
-- Update the system **Path** environment variable 
-```
-C:\Users\KALYAN\Documents\kubectlbinary
-```
-- Verify the kubectl client version
-```
-kubectl version --short --client
-kubectl version --client
-```
+#### Mac 💻
+1. 🛠️ Install Homebrew on MacOS:
+   ```sh
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+   ```
+2. 🍺 Install the Weaveworks Homebrew tap and eksctl:
+   ```sh
+   brew tap weaveworks/tap
+   brew install weaveworks/tap/eksctl
+   ```
+3. ✅ Verify the installation:
+   ```sh
+   eksctl version
+   ```
 
-## Step-03: Install eksctl CLI
-### Step-03-01: eksctl on Mac
-```
-# Install Homebrew on MacOs
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+#### Windows/Linux 🖥️🐧
+For Windows and Linux, refer to the official eksctl installation guide:
+- 📘 [eksctl Installation Guide](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl)
 
-# Install the Weaveworks Homebrew tap.
-brew tap weaveworks/tap
-
-# Install the Weaveworks Homebrew tap.
-brew install weaveworks/tap/eksctl
-
-# Verify eksctl version
-eksctl version
-```
-
-### Step-03-02: eksctl on windows or linux
-- For windows and linux OS, you can refer below documentation link. 
-- **Reference:** https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl
-
-
-## References:
-- https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
+## 📚 References
+- [Getting Started with Amazon EKS using eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html)
